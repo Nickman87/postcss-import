@@ -453,6 +453,13 @@ function insertRules(atRule, parsedAtImport, newStyles) {
   // keep AST clean
   newNodes.forEach(function(node) {
     node.parent = atRule.parent
+	
+	node.raws.imported = true;
+	if (node.walk) {
+		node.walk(function (childNode) {
+			childNode.raws.imported = true;
+		})
+	}
   })
 
   // replace atRule by imported nodes
